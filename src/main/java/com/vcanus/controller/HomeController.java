@@ -22,6 +22,8 @@ public class HomeController {
     public String apiRoot() {
         double[] firArr = FirstArray.MakeArray();
         double[] secArr = SecondArr.MakeArray(firArr);
+//        double[] firArr = {1,2,0,0,3,4,0,0,5,6,0,0};
+//        double[] secArr = {0,0,-1,-2,0,0,-3,-4,0,0,-5,-6};
 
         ArrayList<Map> arr = new ArrayList<Map>();
         for(int i = 0; i < 10; i++){
@@ -34,11 +36,13 @@ public class HomeController {
                     firArrAdjust[j] = 0;
                 }else{
                     firArrAdjust[j] = firArr[j]+(double)(i)*(double)(j)/10d;
+                    //firArrAdjust[j] = firArr[j]+i+j;
                 }
                 if(secArr[j]==0){
                     secArrAdjust[j] = 0;
                 }else{
                     secArrAdjust[j] = secArr[j]+(double)(i)*(double)(j)/10d;
+                    //secArrAdjust[j] = secArr[j]-j-i;
                 }
             }
             wrapMap.put("firArr", firArrAdjust);
