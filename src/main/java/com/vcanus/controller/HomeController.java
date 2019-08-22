@@ -8,9 +8,7 @@ import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class HomeController {
@@ -20,6 +18,62 @@ public class HomeController {
             method = RequestMethod.GET)
     @ResponseBody
     public String apiRoot() {
+        //아래 범위 주석은 2중 리스트 혹은 2중 맵
+        //현재 활성화된 코드는 리스트나 맵
+        double[] firArr = FirstArray.MakeArray();
+        double[] secArr = SecondArr.MakeArray(firArr);
+        double[] thiArr = {1,2,0,0,3,4,0,0,5,6,0,0};
+        double[] fourArr = {0,0,-1,-2,0,0,-3,-4,0,0,-5,-6};
+
+        //List
+        ArrayList<double[]> list = new ArrayList<double[]>();
+        list.add(firArr);
+        list.add(secArr);
+        list.add(thiArr);
+        list.add(fourArr);
+
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        for(double[] values : list){
+            JSONArray childJArray = new JSONArray();
+            for(double value : values){
+                childJArray.add(value);
+            }
+            Object objChild = childJArray;
+            jsonArray.add(objChild);
+        }
+
+        Object obj = jsonArray;
+        jsonObject.put("resultSet", jsonArray);
+
+        String json = jsonObject.toJSONString();
+
+        //HashMap
+//        HashMap<String, double[]> map = new HashMap<String, double[]>();
+//        map.put("firArr", firArr);
+//        map.put("secArr", secArr);
+//        map.put("thiArr", thiArr);
+//        map.put("fourArr", fourArr);
+//
+//        JSONObject jsonObject = new JSONObject();
+//        JSONObject jsonMap = new JSONObject();
+//        List<String> keys = new ArrayList<String>(map.keySet());
+//        for(int i = 0; i < keys.size(); i++){
+//            JSONArray jsonArray = new JSONArray();
+//            for(double value : map.get(keys.get(i))){
+//                jsonArray.add(value);
+//            }
+//            Object objChild = jsonArray;
+//            jsonMap.put(keys.get(i), objChild);
+//        }
+//        Object obj = jsonMap;
+//        jsonObject.put("resultSet", jsonMap);
+//
+//        String json = jsonObject.toJSONString();
+
+        /*
+        //여기부터 이중
+        //HashMap < List
         double[] firArr = FirstArray.MakeArray();
         double[] secArr = SecondArr.MakeArray(firArr);
 //        double[] firArr = {1,2,0,0,3,4,0,0,5,6,0,0};
@@ -64,7 +118,6 @@ public class HomeController {
                         jsonArrayChild.add(j, subElement);
                         j++;
                     }
-
                     Object entryObj = jsonArrayChild;
                     jsonChild.put(entry.getKey(), entryObj);
                 }
@@ -75,25 +128,8 @@ public class HomeController {
         jsonObject.put("resultSet", jsonArray);
 
         String result = jsonObject.toJSONString();
-
-
-//        JSONArray firstJsonArray = new JSONArray();
-//        for(int i = 0; i < firArr.length; i++){
-//            firstJsonArray.add(firArr[i]);
-//        }
-//        JSONArray secondJsonArray = new JSONArray();
-//        for(int i = 0; i < secArr.length; i++){
-//            secondJsonArray.add(secArr[i]);
-//        }
-//
-//        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("first",firstJsonArray);
-//        jsonObject.put("second",secondJsonArray);
-//
-//        String result = jsonObject.toJSONString();
-//
-//        return result;
-        return result;
+        return result;*/
+        return json;
     }
 
     @RequestMapping(
